@@ -1,83 +1,145 @@
 <template>
-  <div class="scrollX">
-      <h2>better-scroll横向滚动测试</h2>
-      <div class="scrollOutside" >
-          <div ref="scrollOutside">
-                <ul class="scrollInside"  ref="scrollInside">
-                    <li class="list" v-for="(value,index) in content" :key="index.id">
-                        <img :src="value.pic" alt="">
-                    </li>
-                </ul>
-         </div>        
-      </div>
+<div class="page__hd center">
+  <div class="page__hd-left">
   </div>
+  <div class="page__hd-mid" ref="wriper">
+    <ul class="hd__mid-content">
+      <li class="hd__mid-title" @click="zc" v-for="(item, index) in titleName"
+       :num="index" :key="index" :class="{'isActive':index===active}">{{item}}</li>
+    </ul>
+  </div>
+  <div class="page__hd-right" :style="{opacity:opaNum,transform:`rotate(${transRot}deg)`}">
+  </div>
+</div>
 </template>
+
 <script>
-import BScroll from "better-scroll";
+import BScroll from "better-scroll"
 export default {
-  data() {
-    return {
-      content:[{
-        title:'1',
-        pic:require('./images/girl1.jpg')
-      },
-      {
-        title:'2',
-        pic:require('./images/girl2.jpg')
-      },
-      {
-        title:'3',
-        pic:require('./images/girl3.jpg')
-      },
-      {
-        title:'4',
-        pic:require('./images/girl4.jpg')
-      },
-      {
-        title:'5',
-        pic:require('./images/girl5.jpg')
+  name: "DiHeader",
+  props: {
+    titleName: {
+      type: Array,
+      default: function() {
+        return ["1", "2", "3"]
       }
-       
-      ]
-    };
+    },
+    isActive: {
+      type: Number,
+      default: 0
+    }
   },
   mounted() {
-    this._initScrollX();
+    this.$nextTick(() => {
+      this.scroll = new BScroll(this.$refs.wriper, {
+        probeType: 3,
+        scrollX: true,
+        scrollY: false,
+        click: true
+      })
+      // this.scroll.on("touchEnd", (pos) => {
+      //   console.log(pos.x + "~" + pos.y)
+      // })
+      this.scroll.on("scroll", (pos) => {
+        if(pos.x <= this.scroll.maxScrollX) {
+          this.transRot = (-pos.x + this.scroll.maxScrollX) * 8
+          this.opaNum = 1 + (pos.x - this.scroll.maxScrollX) / 150
+        }
+      })
+    })
   },
   methods: {
-    _initScrollX() {
-      let width = 100;
-      let marginLeft = 20;
-      this.$refs.scrollInside.style.width =
-        (width + marginLeft) * this.content.length - marginLeft + "px";
-      if (!this.listScroll) {
-        this.listScroll = new BScroll(this.$refs.scrollOutside, {
-          scrollX: true,
-          click: true,
-          eventPassthrough: "vertical"
-        });
-      } else {
-        this.listScroll.refresh();
-      }
+    zc: function(e) {
+      console.log(this.scroll.maxScrollX)
+      this.scroll.scrollToElement(e.target, 1000, true, true, "bounce")
+      this.active = +e.target.attributes[1].value
+    }
+  },
+  data: function() {
+    return {
+      transRot: 0,
+      active: this.isActive,
+      opaNum: 1
     }
   }
-};
+}
 </script>
+
 <style lang="stylus" scoped>
-.scrollX
-    margin: 20px 10px
-    .scrollOutside
-        width: 100%
-        overflow: hidden
-        .scrollInside
-            margin: 0
-            padding: 0
-            width: 100%
-            &>li
-                list-style: none
-                display: inline-block
-                margin-right: 10px
-            .list img
-                width: 100px
-                height: auto
+.page__hd
+  width 10rem
+  height 54px
+
+.page__hd-left
+  width 1.173333rem /* 88/75 */
+  height 17px
+  box-sizing border-box
+  position relative
+  border-right 1px solid #F5F5F5
+  &:before
+    content ""
+    position absolute
+    width 8px
+    height 8px
+    border-radius 4px
+    background-color #666666
+    left 18px
+  &:after
+    content ""
+    position absolute
+    width 14px
+    height 6px
+    border-top-left-radius 2px
+    border-top-right-radius 2px
+    background-color #666666
+    top 10px
+    left 15px
+.page__hd-mid
+  width 7.813333rem /* 586/75 */
+  overflow hidden
+  height 36px
+
+.hd__mid-content
+  display flex
+  width 9rem
+  height 36px
+  justify-content space-around
+
+.hd__mid-title
+  text-align center
+  font-size 14px
+  color #666666
+  line-height 36px
+
+.page__hd-right
+  width 1.013333rem /* 76/75 */
+  height 17px
+  position relative
+  transform-origin 17px 8px
+  &:before
+    content: ""
+    width 8px
+    height 8px
+    background-color: #999
+    position: absolute
+    border-radius 2px
+    left: 8px
+    box-shadow: #999 9px 0px,
+      #999 0px 9px,
+      #999 9px 9px
+  &:after
+    content: ""
+    width 4px
+    height 4px
+    background-color: #999999
+    position: absolute
+    left: 12px
+    top 4px
+    box-shadow: #999999 5px 0px,
+      #999 0px 5px,
+      #999 5px 5px
+
+.isActive
+  font-size 16px
+  color #FC9153
 </style>

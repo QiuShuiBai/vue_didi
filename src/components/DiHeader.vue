@@ -5,7 +5,9 @@
   <div class="page__hd-mid" ref="wriper">
     <ul class="hd__mid-content">
       <li class="hd__mid-title" @click="zc" v-for="(item, index) in titleName"
-       :num="index" :key="index" :class="{'isActive':index===active}">{{item}}</li>
+        :key="index">
+        <router-link class="words" :num="index" :class="{'isActive':index===active}" :to="item.path">{{item.title}}</router-link>
+      </li>
     </ul>
   </div>
   <div class="page__hd-right" :style="{opacity:opaNum,transform:`rotate(${transRot}deg)`}">
@@ -50,9 +52,9 @@ export default {
   },
   methods: {
     zc: function(e) {
-      console.log(this.scroll.maxScrollX)
+      console.log(e.target.attributes)
       this.scroll.scrollToElement(e.target, 1000, true, true, "bounce")
-      this.active = +e.target.attributes[1].value
+      this.active = +e.target.attributes[3].value
     }
   },
   data: function() {
@@ -69,6 +71,11 @@ export default {
 .page__hd
   width 10rem
   height 54px
+  position fixed
+  background-color #ffffff
+  top 0
+  left 0
+  right 0
 
 .page__hd-left
   width 1.173333rem /* 88/75 */
@@ -138,7 +145,10 @@ export default {
     box-shadow: #999999 5px 0px,
       #999 0px 5px,
       #999 5px 5px
-
+.words
+  display inline-block
+  width 100%
+  height 100%
 .isActive
   font-size 16px
   color #FC9153

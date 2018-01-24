@@ -4,9 +4,9 @@
   </div>
   <div class="page__hd-mid" ref="wriper">
     <ul class="hd__mid-content">
-      <li class="hd__mid-title" @click="zc" v-for="(item, index) in titleName"
+      <li class="hd__mid-title" @click="zc" v-for="(item, index) in title"
         :key="index">
-        <router-link class="words" :num="index" :class="{'isActive':index===active}" :to="item.path">{{item.title}}</router-link>
+        <router-link class="words" :num="index" :class="{'isActive':index===active}" :to="item.path">{{item.titleName}}</router-link>
       </li>
     </ul>
   </div>
@@ -16,20 +16,14 @@
 </template>
 
 <script>
+import {mapGetters} from "vuex"
 import BScroll from "better-scroll"
 export default {
   name: "DiHeader",
-  props: {
-    titleName: {
-      type: Array,
-      default: function() {
-        return ["1", "2", "3"]
-      }
-    },
-    isActive: {
-      type: Number,
-      default: 0
-    }
+  computed: {
+    ...mapGetters([
+      "title"
+    ])
   },
   mounted() {
     this.$nextTick(() => {
@@ -60,8 +54,8 @@ export default {
   data: function() {
     return {
       transRot: 0,
-      active: this.isActive,
-      opaNum: 1
+      opaNum: 1,
+      active: 0
     }
   }
 }

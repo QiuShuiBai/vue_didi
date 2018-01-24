@@ -4,6 +4,7 @@ import Vue from "vue"
 import App from "./App"
 import router from "./router"
 import "lib-flexible/flexible"
+import store from "./store"
 import Cube from "cube-ui" // 一般直接放在这个位置
 
 Vue.use(Cube)
@@ -14,5 +15,6 @@ new Vue({
   el: "#app",
   router,
   components: { App },
-  template: "<App/>"
+  template: "<App/>",
+  store
 })

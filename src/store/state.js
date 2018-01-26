@@ -1,4 +1,6 @@
 const state = {
+  isLoading: false,
+  shop: [],
   title: [
     {
       titleName: "快车",

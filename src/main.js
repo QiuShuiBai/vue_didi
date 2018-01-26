@@ -6,15 +6,25 @@ import router from "./router"
 import "lib-flexible/flexible"
 import store from "./store"
 import Cube from "cube-ui" // 一般直接放在这个位置
+import {mapGetters} from "vuex"
 
 Vue.use(Cube)
 Vue.config.productionTip = false
-
 /* eslint-disable no-new */
-new Vue({
+const vm = new Vue({
   el: "#app",
   router,
   components: { App },
   template: "<App/>",
-  store
+  store,
+  computed: {
+    ...mapGetters([
+      "isLoading"
+    ])
+  }
+})
+router.beforeEach((to, from, next) => {
+  console.log(vm.isLoading)
+  store.commit("zTrue")
+  next()
 })

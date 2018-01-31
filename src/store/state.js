@@ -1,5 +1,5 @@
 const state = {
-  isLoading: false,
+  isLoading: true,
   shop: [],
   title: [
     {

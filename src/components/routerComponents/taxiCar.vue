@@ -1,12 +1,7 @@
 <template>
-<div>
-  <div v-if="isLoading" class="page__bd center">
-    asdassssssssssssssssssssssssss
-  </div>
-  <div v-if="!isLoading">
-    <div class="page__bd center">出租车</div>
-    <img src="http://a.hiphotos.baidu.com/image/pic/item/500fd9f9d72a6059f550a1832334349b023bbae3.jpg" alt="">
-  </div>
+<div class="wrap">
+  <di-loading v-if="isLoading"></di-loading>
+  <div v-if="!isLoading" class="page__bd center">出租车</div>
   <div>
     <ul>
       <li v-for='product in shop' :key='product.id'>
@@ -19,32 +14,33 @@
 </template>
 
 <script>
-import store from "../../store"
+import DiLoading from "../DiLoading"
 import {mapGetters} from "vuex"
 export default {
   name: "taxiCar",
   computed: {
     ...mapGetters([
-      "isLoading",
-      "time",
       "shop"
     ])
   },
+  components: {
+    DiLoading
+  },
   mounted() {
     this.$store.dispatch("increment")
-    this.$nextTick(() => {
-      // store.commit("zFalse")
-    })
+  },
+  data() {
+    return {
+      isLoading: true
+    }
   },
   watch: {
     shop() {
-      store.commit("zFalse")
-      console.log("2222222")
+      this.isLoading = false
     }
+  },
+  methods: {
   }
-  // beforeRouteEnter (to, from, next) {
-  //   next()
-  // }
 }
 </script>
 

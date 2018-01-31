@@ -46,7 +46,7 @@ export default {
   },
   methods: {
     zc: function(e) {
-      console.log(e.target.attributes)
+      // console.log(e.target.attributes)
       this.scroll.scrollToElement(e.target, 1000, true, true, "bounce")
       this.active = +e.target.attributes[3].value
     }
@@ -70,6 +70,7 @@ export default {
   top 0
   left 0
   right 0
+  z-index 9999
 
 .page__hd-left
   width 1.173333rem /* 88/75 */
@@ -89,9 +90,11 @@ export default {
     content ""
     position absolute
     width 14px
-    height 6px
-    border-top-left-radius 2px
-    border-top-right-radius 2px
+    height 7px
+    border-top-left-radius 4px
+    border-top-right-radius 4px
+    border-bottom-left-radius 1px
+    border-bottom-right-radius 1px
     background-color #666666
     top 10px
     left 15px

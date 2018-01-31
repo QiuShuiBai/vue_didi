@@ -1,12 +1,13 @@
 <template>
-  <div class="page__bd center">代驾</div>
+	
 </template>
 
 <script>
 export default {
-  name: "desDri"
+
 }
 </script>
 
 <style lang="stylus" scoped>
+
 </style>

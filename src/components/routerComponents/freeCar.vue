@@ -9,8 +9,4 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-  .page__bd
-    background-color pink
-    margin-top 64px
-    font-size 30px
 </style>

@@ -38,4 +38,22 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+.qqqq
+  width 5rem
+  height 50px
+  background-color red
+.cccc
+  width 5rem
+  height 50px
+  background-color gold
+.slide-fade-enter-active {
+  transition: all .8s ease;
+}
+.slide-fade-leave-active {
+  transition: all .8s ease;
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active for below version 2.1.8 */ {
+  transform: translateX(-5rem);
+}
 </style>

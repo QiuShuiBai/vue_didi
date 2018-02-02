@@ -105,4 +105,4 @@
 
     * CSS画了两个icon
 
-        ps:向切图仔进阶，icon真难画，唤起数字键盘竟然是```<input type="tle" />```长了知识
+        ps:向切图仔进阶，icon真难画，唤起数字键盘竟然是```<input type="tel" />```长了知识

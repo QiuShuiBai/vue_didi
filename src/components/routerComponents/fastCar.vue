@@ -21,6 +21,28 @@
       </div>
     </div>
 
+    <di-choose>
+      <p slot="button">呼叫快车</p>
+      <div slot="firstIcon">
+        <div class="IconWrap">
+          <div></div>
+        </div>
+        <div>套餐</div>
+      </div>
+      <div slot="secondIcon">
+        <div class="IconWrap">
+          <div></div>
+        </div>
+        <div>车主招募</div>
+      </div>
+      <div slot="thirdIcon">
+        <div class="IconWrap">
+          <div></div>
+        </div>
+        <div>套餐</div>
+      </div>
+    </di-choose>
+
     <div class="qqqq" @click="zczc"></div>
     <transition name="slide-fade">
       <div v-show="isShow" class="cccc"></div>
@@ -31,11 +53,13 @@
 <script>
 import DiTime from "../DiTime.vue"
 import DiWhere from "../DiWhere.vue"
+import DiChoose from "../DiChoose.vue"
 export default {
   name: "fastCar",
   components: {
     DiTime,
-    DiWhere
+    DiWhere,
+    DiChoose
   },
   data() {
     return {

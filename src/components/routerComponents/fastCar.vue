@@ -21,26 +21,8 @@
       </div>
     </div>
 
-    <di-choose>
+    <di-choose :iconShow="iconShow" :iconText="iconText">
       <p slot="button">呼叫快车</p>
-      <div slot="firstIcon">
-        <div class="IconWrap">
-          <div></div>
-        </div>
-        <div>套餐</div>
-      </div>
-      <div slot="secondIcon">
-        <div class="IconWrap">
-          <div></div>
-        </div>
-        <div>车主招募</div>
-      </div>
-      <div slot="thirdIcon">
-        <div class="IconWrap">
-          <div></div>
-        </div>
-        <div>套餐</div>
-      </div>
     </di-choose>
 
     <div class="qqqq" @click="zczc"></div>
@@ -63,7 +45,9 @@ export default {
   },
   data() {
     return {
-      isShow: true
+      isShow: true,
+      iconShow: ["ticket", "carer", "discount"],
+      iconText: ["车票", "车主招募", "套餐"]
     }
   },
   methods: {

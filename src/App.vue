@@ -4,20 +4,32 @@
   <keep-alive>
     <router-view></router-view>
   </keep-alive>
+  <transition name="slide-fade">
+    <div class="accountMask" v-if="isMask">
+      <di-account></di-account>
+    </div>
+  </transition>
 </div>
 </template>
 <script>
+import {mapGetters} from "vuex"
+import DiAccount from "./components/DiAccount.vue"
 import DiHeader from "./components/DiHeader.vue"
 export default {
+  computed: {
+    ...mapGetters([
+      "isMask"
+    ])
+  },
   components: {
-    DiHeader
+    DiHeader,
+    DiAccount
   },
   data() {
     return {
     }
   },
   methods: {
-
   }
 }
 </script>
@@ -43,4 +55,26 @@ html,body
   font-size 26px
   background-color #fff
   width 9.466667rem
+.accountMask
+  position fixed
+  width 14rem
+  height 100vh
+  background-color rgba(45, 45, 45, .2)
+  top 0
+  left 0
+  right 0
+  left 0
+  z-index 9999
+.slide-fade-enter-active {
+  transition: all .5s ease;
+  // transition: opacity .5s;
+}
+.slide-fade-leave-active {
+  transition: all .5s ease;
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active for below version 2.1.8 */ {
+  transform: translateX(-4rem)
+  opacity 0
+}
 </style>

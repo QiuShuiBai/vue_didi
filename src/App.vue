@@ -7,12 +7,13 @@
   <transition name="slide-fade">
     <div class="accountMask" v-if="isMask">
       <di-account></di-account>
+      <div class="mask" @click="showAccount"></div>
     </div>
   </transition>
 </div>
 </template>
 <script>
-import {mapGetters} from "vuex"
+import {mapGetters, mapMutations} from "vuex"
 import DiAccount from "./components/DiAccount.vue"
 import DiHeader from "./components/DiHeader.vue"
 export default {
@@ -30,6 +31,9 @@ export default {
     }
   },
   methods: {
+    ...mapMutations({
+      showAccount: "changeMask"
+    })
   }
 }
 </script>
@@ -57,14 +61,18 @@ html,body
   width 9.466667rem
 .accountMask
   position fixed
-  width 14rem
+  width 14rem /* 564/75 */
   height 100vh
-  background-color rgba(45, 45, 45, .2)
   top 0
   left 0
   right 0
   left 0
   z-index 9999
+  display flex
+.mask
+  width 6.46rem
+  height 100vh
+  background-color rgba(45, 45, 45, .2)
 .slide-fade-enter-active {
   transition: all .5s ease;
   // transition: opacity .5s;

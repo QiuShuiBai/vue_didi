@@ -151,10 +151,59 @@ export default {
     top 6px
     left 11px
 .setUp
-  width 15px
   height 16px
-  background linear-gradient(-30deg, transparent 2px, deeppink 0)  top left,
-    linear-gradient(120deg, transparent 2px, deeppink 0) top right
-  background-size: 50% 50%
-  background-repeat no-repeat
+  width 15px
+  position relative
+  left 2px
+  background: linear-gradient(135deg, transparent 2px, #666666 2px) no-repeat top left / 4px 8px,
+    linear-gradient(45deg, transparent 2px, #666666 2px) no-repeat bottom left / 4px 8px,
+    linear-gradient(210deg, transparent 5px, #666666 5px) no-repeat top right / 11px 8px,
+    linear-gradient(-30deg, transparent 5px, #666666 5px) no-repeat bottom right / 11px 8px
+  &::before
+    content ""
+    position absolute
+    height 16px
+    width 15px
+    background: linear-gradient(135deg, transparent 2px, #666666 2px) no-repeat top left / 4px 8px,
+      linear-gradient(45deg, transparent 2px, #666666 2px) no-repeat bottom left / 4px 8px,
+      linear-gradient(210deg, transparent 5px, #666666 5px) no-repeat top right / 11px 8px,
+      linear-gradient(-30deg, transparent 5px, #666666 5px) no-repeat bottom right / 11px 8px
+    transform rotate(180deg)
+    left -2px
+  &::after
+    content ""
+    position absolute
+    height 2px
+    width 2px
+    border 1.5px solid #FFFFFF
+    border-radius 50%
+    background-color #FFFFFF
+    top 6px
+    left 4px
+    z-index 2
+.service
+  width 5px
+  height 2px
+  background-color #666666
+  border-radius 1px 1px 0px 0px
+  position relative
+  transform rotate(45deg)
+  left 11px
+  top 2px
+  &::before
+    content ""
+    position absolute
+    width 5px
+    height 11px
+    top 3px
+    background-color #666666
+  &::after
+    content ""
+    position absolute
+    width 0px
+    height 0px
+    top 14px
+    border-top 4px solid #666666
+    border-left 2.5px solid transparent
+    border-right 2.5px solid transparent
 </style>

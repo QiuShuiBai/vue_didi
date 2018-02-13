@@ -1,6 +1,8 @@
 const state = {
-  isLoading: true,
   shop: [],
+  isMask: false,
+  isMap: false,
+  num: 0,
   title: [
     {
       titleName: "快车",
@@ -21,6 +23,22 @@ const state = {
     {
       titleName: "自驾租车",
       path: "/borCar"
-    }]
+    }],
+  where: {
+    nowWhere: {
+      poiname: "正在获取您的位置",
+      // 纬度
+      lat: "",
+      // 经度
+      lng: ""
+    },
+    goWhere: {
+      poiname: "你要去哪儿",
+      // 纬度
+      lat: "",
+      // 经度
+      lng: ""
+    }
+  }
 }
 export default state

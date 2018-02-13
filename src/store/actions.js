@@ -3,3 +3,7 @@ export const increment = ({ commit }) => {
     commit("increment")
   }, 1000)
 }
+
+export const getNowWhere = ({ commit }) => {
+  commit("getNowWhere")
+}

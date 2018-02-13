@@ -5,8 +5,8 @@
     </di-time>
 
     <di-where>
-      <p slot="nowWhere">百佳超市对面</p>
-      <p slot="goWhere">你要去哪儿</p>
+      <p slot="nowWhere">{{where.nowWhere.poiname}}</p>
+      <p slot="goWhere">{{where.goWhere.poiname}}</p>
     </di-where>
 
     <div class="page__bd-fastChoose center">
@@ -21,63 +21,73 @@
       </div>
     </div>
 
+    <di-money></di-money>
+
     <di-choose :iconShow="iconShow" :iconText="iconText">
       <p slot="button">呼叫快车</p>
     </di-choose>
 
-    <div class="qqqq" @click="zczc"></div>
-    <transition name="slide-fade">
-      <div v-show="isShow" class="cccc"></div>
-    </transition>
+    <cube-slide ref="slide" :data="items" >
+      <!-- @change="changePage" -->
+      <cube-slide-item v-for="(item, index) in items" :key="index">
+         <!-- @click.native="clickHandler(item, index)" -->
+        <a :href="item.url">
+          <img :src="item.image">
+        </a>
+      </cube-slide-item>
+    </cube-slide>
   </div>
 </template>
 
 <script>
+import {mapGetters} from "vuex"
 import DiTime from "../DiTime.vue"
 import DiWhere from "../DiWhere.vue"
 import DiChoose from "../DiChoose.vue"
+import DiMoney from "../DiMoney.vue"
 export default {
   name: "fastCar",
+  computed: {
+    ...mapGetters([
+      "where"
+    ])
+  },
+  mounted() {
+    this.$store.commit("getNowWhere")
+  },
   components: {
     DiTime,
     DiWhere,
-    DiChoose
+    DiChoose,
+    DiMoney
   },
   data() {
     return {
+      items: [
+        {
+          url: "http://www.didichuxing.com/",
+          image: "http://webapp.didistatic.com/static/webapp/shield/cube-ui-examples-slide01.png"
+        },
+        {
+          url: "http://www.didichuxing.com/",
+          image: "http://webapp.didistatic.com/static/webapp/shield/cube-ui-examples-slide02.png"
+        },
+        {
+          url: "http://www.didichuxing.com/",
+          image: "http://webapp.didistatic.com/static/webapp/shield/cube-ui-examples-slide03.png"
+        }
+      ],
       isShow: true,
       iconShow: ["ticket", "carer", "discount"],
       iconText: ["车票", "车主招募", "套餐"]
     }
   },
   methods: {
-    zczc() {
-      this.isShow = !this.isShow
-      console.log(this.qqqq)
-    }
   }
 }
 </script>
 
 <style lang="stylus" scoped>
-.qqqq
-  width 5rem
-  height 50px
-  background-color red
-.cccc
-  width 5rem
-  height 50px
-  background-color gold
-.slide-fade-enter-active {
-  transition: all .8s ease;
-}
-.slide-fade-leave-active {
-  transition: all .8s ease;
-}
-.slide-fade-enter, .slide-fade-leave-to
-/* .slide-fade-leave-active for below version 2.1.8 */ {
-  transform: translateX(-5rem);
-}
 .page__bd-fastGo,.page__bd-fastChange
   width 4.733333rem /* 355/75 */
   height 46px
@@ -133,4 +143,9 @@ export default {
 .fastGoText,.fastChangeText
   font-size 12px
   color #666666
+.cube-slide
+  overflow: hidden;
+  position relative
+  min-height: 1px;
+  border-top 10px solid #F3F4F5
 </style>

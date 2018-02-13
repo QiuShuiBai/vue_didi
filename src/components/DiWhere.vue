@@ -1,24 +1,34 @@
 <template>
   <div class="page__bd-where">
-    <div class="where-Where center">
+
+    <div class="ori-Where center" @click="chooseOri(1)">
       <div class="where-nowLeft"></div>
       <div class="where-mid mid-nowText">
         <slot name="nowWhere"></slot>
       </div>
       <div class="where-right"></div>
     </div>
-    <div class="where-Where center">
+
+    <div class="des-Where center" @click="chooseOri(2)">
       <div class="where-goLeft"></div>
       <div class="where-mid mid-goText">
         <slot name="goWhere"></slot>
       </div>
       <div class="where-right"></div>
     </div>
+
   </div>
 </template>
 
 <script>
-export default {}
+import {mapMutations} from "vuex"
+export default {
+  methods: {
+    ...mapMutations({
+      chooseOri: "chooseOri"
+    })
+  }
+}
 </script>
 
 <style lang="stylus" scoped>
@@ -27,7 +37,7 @@ export default {}
   height 100px
   box-sizing border-box
   border-bottom 1px solid #EBEBEB
-.where-Where
+.ori-Where,.des-Where
   width 100%
   height 50px
   box-sizing border-box

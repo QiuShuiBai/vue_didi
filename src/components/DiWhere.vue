@@ -4,7 +4,7 @@
     <div class="ori-Where center" @click="chooseOri(1)">
       <div class="where-nowLeft"></div>
       <div class="where-mid mid-nowText">
-        <slot name="nowWhere"></slot>
+         <p>{{where.nowWhere.poiname}}</p>
       </div>
       <div class="where-right"></div>
     </div>
@@ -12,7 +12,7 @@
     <div class="des-Where center" @click="chooseOri(2)">
       <div class="where-goLeft"></div>
       <div class="where-mid mid-goText">
-        <slot name="goWhere"></slot>
+         <p>{{where.goWhere.poiname}}</p>
       </div>
       <div class="where-right"></div>
     </div>
@@ -21,8 +21,13 @@
 </template>
 
 <script>
-import {mapMutations} from "vuex"
+import {mapMutations, mapGetters} from "vuex"
 export default {
+  computed: {
+    ...mapGetters([
+      "where"
+    ])
+  },
   methods: {
     ...mapMutations({
       chooseOri: "chooseOri"

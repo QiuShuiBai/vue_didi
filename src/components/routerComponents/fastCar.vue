@@ -4,17 +4,15 @@
       <slot>“ 最快两分钟接驾 ”</slot>
     </di-time>
 
-    <di-where>
-      <p slot="nowWhere">{{where.nowWhere.poiname}}</p>
-      <p slot="goWhere">{{where.goWhere.poiname}}</p>
-    </di-where>
+    <di-where></di-where>
 
     <div class="page__bd-fastChoose center">
-      <div class="page__bd-fastGo center">
+      <div class="page__bd-fastGo center" @click="showTimePicker">
         <div class="fastGoIcon"></div>
-        <p class="fastGoText">现在出发</p>
+        <p class="fastGoText">{{time}}</p>
       </div>
-      <div class="page__bd-fastChange center">
+
+      <div class="page__bd-fastChange center" @click="choosePer">
         <!-- <input type="tel" /> -->
         <div class="fastChangeIcon"></div>
         <p class="fastChangeText">换乘车人</p>
@@ -36,11 +34,23 @@
         </a>
       </cube-slide-item>
     </cube-slide>
+
+    <div v-if="ifChoosePer" class="choosePer center"  @click="choosePer">
+      <div class="chooseWrap" @click.stop="stop">
+        <div class="chooseTitle center">
+          请输入乘车人联系电话
+        </div>
+        <div class="chooseIpt">
+          <input type="tel" placeholder="请输入手机号码"/>
+        </div>
+        <cube-button>确定</cube-button>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import {mapGetters} from "vuex"
+import {mapGetters, mapMutations} from "vuex"
 import DiTime from "../DiTime.vue"
 import DiWhere from "../DiWhere.vue"
 import DiChoose from "../DiChoose.vue"
@@ -49,7 +59,8 @@ export default {
   name: "fastCar",
   computed: {
     ...mapGetters([
-      "where"
+      "where",
+      "time"
     ])
   },
   mounted() {
@@ -63,6 +74,7 @@ export default {
   },
   data() {
     return {
+      ifChoosePer: false,
       items: [
         {
           url: "http://www.didichuxing.com/",
@@ -83,6 +95,38 @@ export default {
     }
   },
   methods: {
+    ...mapMutations({
+      changeTime: "changeTime"
+    }),
+    stop() {
+    },
+    showTimePicker(e) {
+      this.$createTimePicker({
+        showNow: true,
+        minuteStep: 10,
+        delay: 10,
+        day: {
+          len: 3,
+          filter: ["今天", "明天", "后天"],
+          format: "M月d日"
+        },
+        onSelect: (selectedTime, selectedText) => {
+          console.log(selectedTime, selectedText)
+          selectedText = selectedText.replace("点", "").replace("分", "")
+          if(selectedText !== "现在") {
+            this.changeTime(selectedText)
+          } else {
+            this.changeTime("现在出发")
+          }
+        },
+        onCancel: () => {
+        }
+      }).show()
+    },
+    choosePer() {
+      this.ifChoosePer = !this.ifChoosePer
+      console.log("big")
+    }
   }
 }
 </script>
@@ -148,4 +192,37 @@ export default {
   position relative
   min-height: 1px;
   border-top 10px solid #F3F4F5
+.choosePer
+  position fixed
+  z-index 9999
+  width 100vw
+  height 100vh
+  top 0
+  bottom 0
+  left 0
+  right 0
+  background-color rgba(35, 35, 35, 0.25)
+.chooseWrap
+  height 184px
+  width 7.2rem /* 540/75 */
+  background-color #FFFFFF
+  border-radius 4px
+  display flex
+  flex-direction column
+  justify-content space-between
+  z-index inherit
+  button
+    border-radius 0 0 4px 4px
+.chooseTitle
+  font-size 17px
+  height 18px
+  margin-top 40px
+.chooseIpt
+  width 100%
+  input
+    width 100%
+    vertical-align middle
+    height 50px
+    text-align center
+    font-size 14px
 </style>

@@ -1,8 +1,6 @@
 <template>
   <div class="page__bd">
-    <di-time>
-      <slot>“ 最快两分钟接驾 ”</slot>
-    </di-time>
+    <di-time></di-time>
 
     <di-where></di-where>
 
@@ -15,7 +13,7 @@
       <div class="page__bd-fastChange center" @click="choosePer">
         <!-- <input type="tel" /> -->
         <div class="fastChangeIcon"></div>
-        <p class="fastChangeText">换乘车人</p>
+        <p class="fastChangeText">{{changePer}}</p>
       </div>
     </div>
 
@@ -30,20 +28,20 @@
       <cube-slide-item v-for="(item, index) in items" :key="index">
          <!-- @click.native="clickHandler(item, index)" -->
         <a :href="item.url">
-          <img :src="item.image">
+          <img :src="item.image" class="slideImg">
         </a>
       </cube-slide-item>
     </cube-slide>
 
-    <div v-if="ifChoosePer" class="choosePer center"  @click="choosePer">
-      <div class="chooseWrap" @click.stop="stop">
+    <div v-if="ifChoosePer" class="choosePer center"  @click.self="choosePer">
+      <div class="chooseWrap">
         <div class="chooseTitle center">
           请输入乘车人联系电话
         </div>
-        <div class="chooseIpt">
-          <input type="tel" placeholder="请输入手机号码"/>
+        <div class="chooseIpt" :lalala="tureText">
+          <input type="tel" pattern="[0-9]" maxlength="11" placeholder="请输入手机号码" @keyup="writeTel" v-model="tleNum">
         </div>
-        <cube-button>确定</cube-button>
+        <cube-button :disabled="iptDisabled" @click="isTelNum">确定</cube-button>
       </div>
     </div>
   </div>
@@ -64,7 +62,7 @@ export default {
     ])
   },
   mounted() {
-    this.$store.commit("getNowWhere")
+    this.$store.dispatch("getNowWhere")
   },
   components: {
     DiTime,
@@ -75,6 +73,11 @@ export default {
   data() {
     return {
       ifChoosePer: false,
+      iptDisabled: true,
+      changePer: "换乘车人",
+      tureText: "",
+      zcInput: "zcInput",
+      tleNum: "",
       items: [
         {
           url: "http://www.didichuxing.com/",
@@ -98,8 +101,6 @@ export default {
     ...mapMutations({
       changeTime: "changeTime"
     }),
-    stop() {
-    },
     showTimePicker(e) {
       this.$createTimePicker({
         showNow: true,
@@ -111,7 +112,6 @@ export default {
           format: "M月d日"
         },
         onSelect: (selectedTime, selectedText) => {
-          console.log(selectedTime, selectedText)
           selectedText = selectedText.replace("点", "").replace("分", "")
           if(selectedText !== "现在") {
             this.changeTime(selectedText)
@@ -125,7 +125,24 @@ export default {
     },
     choosePer() {
       this.ifChoosePer = !this.ifChoosePer
-      console.log("big")
+    },
+    writeTel() {
+      var reg = /^[1][3,4,5,7,8][0-9]{9}$/
+      var phoneNum = this.tleNum
+      if(reg.test(phoneNum)) {
+        this.iptDisabled = false
+        this.tureText = ""
+      }else{
+        this.iptDisabled = true
+        if(phoneNum.length === 11) {
+          this.tureText = "请输入正确号码"
+        }
+      }
+    },
+    isTelNum() {
+      this.ifChoosePer = !this.ifChoosePer
+      this.tureText = ""
+      this.changePer = "尾号" + this.tleNum.slice(7, 11)
     }
   }
 }
@@ -219,10 +236,23 @@ export default {
   margin-top 40px
 .chooseIpt
   width 100%
+  position relative
+  &::before
+    content attr(lalala)
+    position absolute
+    width 2.666667rem /* 200/75 */ /* 100/75 */
+    height 20px
+    color red
+    top -15px
+    left 2.266667rem /* 170/75 */
+    text-align center
+    font-size 12px
   input
     width 100%
     vertical-align middle
-    height 50px
+    height 25px
     text-align center
     font-size 14px
+.slideImg
+  width 9.466667rem
 </style>

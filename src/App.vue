@@ -25,19 +25,35 @@ export default {
   computed: {
     ...mapGetters([
       "isMask",
-      "isMap"
+      "isMap",
+      "isMoney",
+      "where"
     ])
   },
   mounted() {
     var that = this
+    this.$store.dispatch("timeComing")
     window.addEventListener("message", function(event) {
       // 接收位置信息，用户选择确认位置点后选点组件会触发该事件，回传用户的位置信息
       var loc = event.data
       if(loc && loc.module === "locationPicker") {
         // 防止其他应用也会向该页面post信息，需判断module是否为"locationPicker"
-        console.log("location", loc)
         that.chooseOri()
         that.chooseWhere(loc)
+        if(that.isMoney) {
+          var where = that.where
+          that.$http.get(`gp/ws/distance/v1/?mode=driving&from=${where.nowWhere.lat},${where.nowWhere.lng}&to=${where.goWhere.lat},${where.goWhere.lng}&key=LBOBZ-AFKCX-SDS4Z-7OY56-CPLTJ-DGBMU`)
+            .then(response => {
+              var distance = response.data.result.elements[0].distance
+              var duration = response.data.result.elements[0].duration
+              var money = (duration * 0.4 / 60 + distance * 1.6 / 1000).toFixed(2)
+              money = money < 8 ? 8 : money
+              that.changeMoney(money)
+            })
+            .catch(() => {
+              that.changeMoney("无限大")
+            })
+        }
       }
     }, false)
   },
@@ -53,7 +69,8 @@ export default {
     ...mapMutations({
       showAccount: "changeMask",
       chooseOri: "chooseOri",
-      chooseWhere: "chooseWhere"
+      chooseWhere: "chooseWhere",
+      changeMoney: "changeMoney"
     })
   }
 }
@@ -108,11 +125,11 @@ html,body
 }
 
 .chooseOri-enter-active {
-  transition: all 1s ease;
+  transition: all .5s ease;
   // transition: opacity .5s;
 }
 .chooseOri-leave-active {
-  transition: all 1s ease;
+  transition: all .5s ease;
 }
 .chooseOri-enter, .chooseOri-leave-to
 /* .acc-mask-leave-active for below version 2.1.8 */ {

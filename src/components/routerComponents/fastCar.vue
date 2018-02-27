@@ -5,9 +5,8 @@
     <di-where></di-where>
 
     <div class="page__bd-fastChoose center">
-      <div class="page__bd-fastGo center" @click="showTimePicker">
-        <div class="fastGoIcon"></div>
-        <p class="fastGoText">{{time}}</p>
+      <div>
+        <di-choose-time></di-choose-time>
       </div>
 
       <div class="page__bd-fastChange center" @click="choosePer">
@@ -48,11 +47,12 @@
 </template>
 
 <script>
-import {mapGetters, mapMutations} from "vuex"
+import {mapGetters} from "vuex"
 import DiTime from "../DiTime.vue"
 import DiWhere from "../DiWhere.vue"
 import DiChoose from "../DiChoose.vue"
 import DiMoney from "../DiMoney.vue"
+import DiChooseTime from "../DiChooseTime"
 export default {
   name: "fastCar",
   computed: {
@@ -61,14 +61,12 @@ export default {
       "time"
     ])
   },
-  mounted() {
-    this.$store.dispatch("getNowWhere")
-  },
   components: {
     DiTime,
     DiWhere,
     DiChoose,
-    DiMoney
+    DiMoney,
+    DiChooseTime
   },
   data() {
     return {
@@ -98,31 +96,6 @@ export default {
     }
   },
   methods: {
-    ...mapMutations({
-      changeTime: "changeTime"
-    }),
-    showTimePicker(e) {
-      this.$createTimePicker({
-        showNow: true,
-        minuteStep: 10,
-        delay: 10,
-        day: {
-          len: 3,
-          filter: ["今天", "明天", "后天"],
-          format: "M月d日"
-        },
-        onSelect: (selectedTime, selectedText) => {
-          selectedText = selectedText.replace("点", "").replace("分", "")
-          if(selectedText !== "现在") {
-            this.changeTime(selectedText)
-          } else {
-            this.changeTime("现在出发")
-          }
-        },
-        onCancel: () => {
-        }
-      }).show()
-    },
     choosePer() {
       this.ifChoosePer = !this.ifChoosePer
     },
@@ -149,39 +122,19 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-.page__bd-fastGo,.page__bd-fastChange
+.page__bd-fastChoose
+  border-bottom 1px solid #EBEBEB
+.page__bd-fastChange
   width 4.733333rem /* 355/75 */
   height 46px
   box-sizing border-box
-  border-bottom 1px solid #EBEBEB
-.page__bd-fastGo
-  border-right 1px solid #FAFAFA
 .page__bd-fastChange
-  border-left 1px solid #FAFAFA
-.fastGoIcon,.fastChangeIcon
+  border-left 2px solid #FAFAFA
+.fastChangeIcon
   width 12px
   height 12px
   position relative
   margin-right 0.186667rem /* 14/75 */
-.fastGoIcon
-  border-radius 50%
-  background-color #CCCCCC
-  &::before
-    content ""
-    position absolute
-    width 3px
-    height 1px
-    background-color #FFFFFF
-    left 6px
-    top 5px
-  &::after
-    content ""
-    position absolute
-    width 1px
-    height 5px
-    background-color #FFFFFF
-    left 5px
-    top 1px
 .fastChangeIcon
   &::before
     content ""
@@ -201,7 +154,7 @@ export default {
     border-top-left-radius 3px
     border-top-right-radius 3px
     top 7px
-.fastGoText,.fastChangeText
+.fastChangeText
   font-size 12px
   color #666666
 .cube-slide

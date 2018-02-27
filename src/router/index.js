@@ -5,10 +5,12 @@ import taxiCar from "@/components/routerComponents/taxiCar.vue"
 import freeCar from "@/components/routerComponents/freeCar.vue"
 import desDri from "@/components/routerComponents/desDri.vue"
 import borCar from "@/components/routerComponents/borCar.vue"
+import DiAccount from "@/components/DiAccount.vue"
 
 Vue.use(Router)
 
 export default new Router({
+  linkExactActiveClass: "isActive",
   routes: [
     {
       path: "/",
@@ -39,6 +41,11 @@ export default new Router({
       path: "/borCar",
       name: "borCar",
       component: borCar
+    },
+    {
+      path: "/DiAccount",
+      name: "DiAccount",
+      component: DiAccount
     }
   ]
 })

@@ -1,12 +1,11 @@
 <template>
 <div class="page__hd center">
-  <div class="page__hd-left">
+  <div class="page__hd-left" @click="showAccount">
   </div>
   <div class="page__hd-mid" ref="wriper">
     <ul class="hd__mid-content">
-      <li class="hd__mid-title" @click="zc" v-for="(item, index) in title"
-        :key="index">
-        <router-link class="words" :num="index" :class="{'isActive':index===active}" :to="item.path">{{item.titleName}}</router-link>
+      <li class="hd__mid-title" @click="zc" v-for="(item, index) in title" :key="index">
+        <router-link class="words" :to="item.path">{{item.titleName}}</router-link>
       </li>
     </ul>
   </div>
@@ -16,7 +15,7 @@
 </template>
 
 <script>
-import {mapGetters} from "vuex"
+import {mapGetters, mapMutations} from "vuex"
 import BScroll from "better-scroll"
 export default {
   name: "DiHeader",
@@ -48,8 +47,10 @@ export default {
     zc: function(e) {
       // console.log(e.target.attributes)
       this.scroll.scrollToElement(e.target, 1000, true, true, "bounce")
-      this.active = +e.target.attributes[3].value
-    }
+    },
+    ...mapMutations({
+      showAccount: "changeMask"
+    })
   },
   data: function() {
     return {
@@ -70,7 +71,7 @@ export default {
   top 0
   left 0
   right 0
-  z-index 9999
+  z-index 1
 
 .page__hd-left
   width 1.173333rem /* 88/75 */

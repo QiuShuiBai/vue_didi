@@ -74,7 +74,6 @@ export default {
       iptDisabled: true,
       changePer: "换乘车人",
       tureText: "",
-      zcInput: "zcInput",
       tleNum: "",
       items: [
         {
@@ -135,7 +134,6 @@ export default {
   height 12px
   position relative
   margin-right 0.186667rem /* 14/75 */
-.fastChangeIcon
   &::before
     content ""
     position absolute

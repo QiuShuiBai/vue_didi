@@ -32,7 +32,6 @@ export default {
   },
   mounted() {
     var that = this
-    this.$store.dispatch("timeComing")
     window.addEventListener("message", function(event) {
       // 接收位置信息，用户选择确认位置点后选点组件会触发该事件，回传用户的位置信息
       var loc = event.data
@@ -86,7 +85,7 @@ html,body
   background-color #F3F4F5
   box-sizing border-box
   border-top: 1px solid #ccc;//新增
-  height 100%
+  min-height 100%
 .center
   display flex
   align-items center
@@ -123,7 +122,6 @@ html,body
   transform: translateX(-4rem)
   opacity 0
 }
-
 .chooseOri-enter-active {
   transition: all .5s ease;
   // transition: opacity .5s;

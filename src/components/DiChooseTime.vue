@@ -6,13 +6,16 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex"
+import { mapGetters, mapMutations } from "vuex"
 export default {
   name: "diChooseTime",
   computed: {
     ...mapGetters(["time"])
   },
   methods: {
+    ...mapMutations({
+      changeTime: "changeTime"
+    }),
     showTimePicker(e) {
       this.$createTimePicker({
         showNow: true,

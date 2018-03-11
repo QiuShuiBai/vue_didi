@@ -1,16 +1,24 @@
 <template>
-  <div class="diMoney center">
+  <div v-if="isMoney" class="diMoney center">
     <div class="moneyText">
-      约&nbsp;<span>{{diMoney}}</span>&nbsp;元
+      约&nbsp;<span>{{money}}</span>&nbsp;元
     </div>
   </div>
 </template>
 
 <script>
+import {mapGetters} from "vuex"
 export default {
+  computed: {
+    ...mapGetters([
+      "isMoney",
+      "money"
+    ])
+  },
+  methods: {
+  },
   data() {
     return {
-      diMoney: 18
     }
   }
 }
@@ -21,7 +29,7 @@ export default {
   width 100%
   height 55px
   box-sizing border-box
-  border-bottom 1px solid #FAFAFA
+  border-bottom 1px solid #EBEBEB
 .moneyText
   font-size 12px
   color #666666

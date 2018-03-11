@@ -5,8 +5,10 @@ const state = {
   isMoney: false,
   money: 0,
   num: 0,
+  perNumber: 0,
   time: "现在出发",
   timeComing: "正在查看附近车辆",
+  test: "",
   title: [
     {
       titleName: "快车",
@@ -25,7 +27,7 @@ const state = {
       path: "/desDri"
     },
     {
-      titleName: "自驾租车",
+      titleName: "二手车",
       path: "/borCar"
     }],
   where: {

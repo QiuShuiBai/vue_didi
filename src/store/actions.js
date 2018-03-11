@@ -5,11 +5,15 @@ export const increment = ({ commit }) => {
   }, 1000)
 }
 
-export const getNowWhere = ({ commit }) => {
+export const getNowWhere = ({ commit, state }) => {
+  if(state.where.nowWhere.poiname !== "正在获取您的位置") {
+    return
+  }
   // eslint-disable-next-line
   var geolocation = new qq.maps.Geolocation("OB4BZ-D4W3U-B7VVO-4PJWW-6TKDJ-WPB77", "myapp")
   var options = { timeout: 4000 }
   function showPosition(position) {
+    console.log(position)
     var obj = {}
     obj.addr = position.addr
     obj.lat = position.lat
@@ -27,7 +31,7 @@ export const getNowWhere = ({ commit }) => {
   geolocation.getLocation(showPosition, showErr, options)
 }
 
-export const timeComing = ({commit}) => {
+export const timeComing = ({commit, state}) => {
   axios.get("em/mock/5a8e7c36f6208b69f2c27ef6/vue_didi")
     .then(response => {
       var obj = {
@@ -41,4 +45,8 @@ export const timeComing = ({commit}) => {
       }
       commit("timeComing", obj)
     })
+  // axios.get("../static/data.json")
+  //   .then(response => {
+  //     state.test = response
+  //   })
 }

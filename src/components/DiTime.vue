@@ -1,12 +1,26 @@
 <template>
   <div class="page__bd-time center">
-    <p class="time-title"><slot></slot></p>
+    <p class="time-title">“ {{timeComing}} ”</p>
   </div>
 </template>
 
 <script>
+import {mapGetters} from "vuex"
 export default {
-  name: "DiTime"
+  name: "DiTime",
+  mounted() {
+    this.$store.dispatch("timeComing")
+  },
+  computed: {
+    ...mapGetters([
+      "where",
+      "timeComing"
+    ])
+  },
+  data() {
+    return {
+    }
+  }
 }
 </script>
 

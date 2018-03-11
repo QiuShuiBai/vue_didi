@@ -1,5 +1,10 @@
 export const title = state => state.title
 export const isMask = state => state.isMask
 export const isMap = state => state.isMap
+export const isMoney = state => state.isMoney
 export const shop = state => state.shop
 export const where = state => state.where
+export const money = state => state.money
+export const time = state => state.time
+export const timeComing = state => state.timeComing
+export const perNumber = state => state.perNumber

@@ -35,10 +35,12 @@ const mutations = {
       state.where.nowWhere.poiname = where.poiname
       state.where.nowWhere.lat = where.latlng.lat
       state.where.nowWhere.lng = where.latlng.lng
+      state.where.nowWhere.cityname = where.cityname
     }else {
       state.where.goWhere.poiname = where.poiname
       state.where.goWhere.lat = where.latlng.lat
       state.where.goWhere.lng = where.latlng.lng
+      state.where.goWhere.cityname = where.cityname
     }
     if(state.where.goWhere.lat && state.where.nowWhere.lat) {
       state.isMoney = true
@@ -46,6 +48,9 @@ const mutations = {
   },
   timeComing(state, obj) {
     state.timeComing = obj.timeComing
+  },
+  changePerNum(state, num) {
+    state.perNumber = num
   }
 }
 export default mutations

@@ -28,6 +28,9 @@ export default {
       "where"
     ])
   },
+  mounted() {
+    this.$store.dispatch("getNowWhere")
+  },
   methods: {
     ...mapMutations({
       chooseOri: "chooseOri"

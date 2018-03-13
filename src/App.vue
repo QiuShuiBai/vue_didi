@@ -41,10 +41,12 @@ export default {
         that.chooseWhere(loc)
         if(that.isMoney) {
           var where = that.where
-          that.$http.get(`gp/ws/distance/v1/?mode=driving&from=${where.nowWhere.lat},${where.nowWhere.lng}&to=${where.goWhere.lat},${where.goWhere.lng}&key=LBOBZ-AFKCX-SDS4Z-7OY56-CPLTJ-DGBMU`)
+          that.$http.get(`gp/v3/distance?origins=${where.nowWhere.lng},${where.nowWhere.lat}&destination=${where.goWhere.lng},${where.goWhere.lat}&output=JSON&key=2bc99677d54a5c7d5e9c248ca0ec8c9d`)
             .then(response => {
-              var distance = response.data.result.elements[0].distance
-              var duration = response.data.result.elements[0].duration
+              console.log(`gp/v3/distance?origins=${where.nowWhere.lng},${where.nowWhere.lat}&destination=${where.goWhere.lng},${where.goWhere.lat}&output=json&key=2bc99677d54a5c7d5e9c248ca0ec8c9d`)
+              console.log(response)
+              var distance = response.data.results[0].distance
+              var duration = response.data.results[0].duration
               var money = (duration * 0.4 / 60 + distance * 1.6 / 1000).toFixed(2)
               money = money < 8 ? 8 : money
               that.changeMoney(money)
@@ -95,7 +97,7 @@ html,body
   margin-top 64px
   font-size 26px
   background-color #fff
-  width 9.466667rem
+  width 9.466667rem /* 710/75 */
 .accountMask
   position fixed
   width 14rem /* 564/75 */

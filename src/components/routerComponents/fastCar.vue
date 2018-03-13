@@ -27,7 +27,7 @@
       <cube-slide-item v-for="(item, index) in items" :key="index">
          <!-- @click.native="clickHandler(item, index)" -->
         <a :href="item.url">
-          <img :src="item.image" class="slideImg">
+          <img @load="imageLoaded" :src="item.image" class="slideImg">
         </a>
       </cube-slide-item>
     </cube-slide>
@@ -75,6 +75,7 @@ export default {
       changePer: "换乘车人",
       tureText: "",
       tleNum: "",
+      imageNum: 0,
       items: [
         {
           url: "http://www.didichuxing.com/",
@@ -115,6 +116,13 @@ export default {
       this.ifChoosePer = !this.ifChoosePer
       this.tureText = ""
       this.changePer = "尾号" + this.tleNum.slice(7, 11)
+    },
+    imageLoaded() {
+      this.imageNum = this.imageNum + 1
+      if(this.imageNum === 3) {
+        this.$refs.slide.refresh()
+        this.isLoading = false
+      }
     }
   }
 }

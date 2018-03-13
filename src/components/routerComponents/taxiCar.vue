@@ -1,7 +1,7 @@
 <template>
 <div class="wrap">
   <di-loading v-if="isLoading"></di-loading>
-  <div v-if="!isLoading" class="page__bd">
+  <div v-show="!isLoading" class="page__bd">
     <di-time></di-time>
     <di-where></di-where>
     <div class="page__bd-choTime center">
@@ -12,18 +12,9 @@
       <cube-button :active="true">确定</cube-button>
     </div>
     <div class="page__bd-img">
-      <img src="https://imgchr.com/content/images/users/pp1L4/bkg_1519641651.png" alt="">
+      <img @load="imageLoaded" src="https://imgchr.com/content/images/users/pp1L4/bkg_1519641651.png" alt="">
     </div>
   </div>
-  <div>
-    <ul>
-      <li v-for='product in shop' :key='product.id'>
-          {{ product.title }} - {{ product.price }}
-          <br>
-      </li>
-    </ul>
-  </div>
-  <div @click="giv">22222222222222</div>
 </div>
 </template>
 
@@ -49,21 +40,15 @@ export default {
     DiChooseTime
   },
   mounted() {
-    this.$store.dispatch("increment")
   },
   data() {
     return {
       isLoading: true
     }
   },
-  watch: {
-    shop() {
-      this.isLoading = false
-    }
-  },
   methods: {
-    giv() {
-      this.$store.dispatch("timeComing")
+    imageLoaded() {
+      this.isLoading = false
     }
   }
 }

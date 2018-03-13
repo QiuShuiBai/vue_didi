@@ -1,18 +1,18 @@
 <template>
-  <div class="page__bd">
+  <div class="wrap">
+    <di-loading v-if="isLoading"></di-loading>
     <cube-slide ref="slide" :data="items">
       <!-- @change="changePage" -->
       <cube-slide-item v-for="(item, index) in items" :key="index">
          <!-- @click.native="clickHandler(item, index)" -->
         <a :href="item.url">
-          <img :src="item.image" class="slideImg">
+          <img @load="imageLoaded" :src="item.image" class="slideImg">
         </a>
       </cube-slide-item>
       <template slot="dots" slot-scope="props">
         <span class="my-dot" :class="{active: props.current === index}" v-for="(item, index) in props.dots" :key="index">{{index + 1}}</span>
       </template>
     </cube-slide>
-
     <div class="page__bd-sellSer">
       <div class="sellSer-title center">
         <div class="left-desc">
@@ -54,16 +54,21 @@
         </div>
       </div>
     </div>
-
     <div class="cc-phone">免费咨询专家：400-022-5387</div>
   </div>
 </template>
 
 <script>
+import DiLoading from "../DiLoading"
 export default {
   name: "borCar",
+  components: {
+    DiLoading
+  },
   data() {
     return {
+      imageNum: 0,
+      isLoading: true,
       carItem: [
         "省油代步", "急售降价", "捡便宜", "准新车", "5万以下", "5-10万",
         "10-15万", "15万以上", "大众", "五菱汽车", "别克", "雪拂兰"
@@ -89,13 +94,24 @@ export default {
         }
       ]
     }
+  },
+  methods: {
+    imageLoaded() {
+      this.imageNum = this.imageNum + 1
+      if(this.imageNum === 2) {
+        this.$refs.slide.refresh()
+        this.isLoading = false
+      }
+    }
   }
 }
 </script>
 
 <style lang="stylus" scoped>
-.page__bd
-  background-color transparent
+.wrap
+  margin 0 auto
+  margin-top 64px
+  width 9.466667rem /* 710/75 */
 .cube-slide
   overflow: hidden
 .slideImg

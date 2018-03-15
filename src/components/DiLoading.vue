@@ -14,7 +14,6 @@ export default {}
 .page__bd-loading {
   height: 99vh;
 }
-
 .loading {
   width: 100px;
   height: 50px;

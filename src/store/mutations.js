@@ -15,8 +15,8 @@ const mutations = {
   changeMoney(state, money) {
     state.money = money
   },
-  changeTime(state, time) {
-    state.time = time
+  changeFreeCarMoney(state, freeCarMoney) {
+    state.freeCarMoney = freeCarMoney
   },
   increment(state) {
     state.shop = [

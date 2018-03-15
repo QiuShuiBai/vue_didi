@@ -1,6 +1,7 @@
 <template>
   <div class="page__bd-time center">
-    <p class="time-title">“ {{timeComing}} ”</p>
+    <p class="time-title" v-if="ifShow">“ 正在查看附近车辆 ”</p>
+    <p class="time-title" v-if="!ifShow">“ {{timeComing}} ”</p>
   </div>
 </template>
 
@@ -9,7 +10,7 @@ import {mapGetters} from "vuex"
 export default {
   name: "DiTime",
   mounted() {
-    this.$store.dispatch("timeComing")
+    this.$store.dispatch("timeComing", this.$route.name)
   },
   computed: {
     ...mapGetters([
@@ -17,9 +18,19 @@ export default {
       "timeComing"
     ])
   },
+  watch: {
+    timeComing() {
+      this.ifShow = false
+    }
+  },
   data() {
     return {
+      ifShow: true
     }
+  },
+  activated() {
+    this.ifShow = true
+    this.$store.dispatch("timeComing", this.$route.name)
   }
 }
 </script>

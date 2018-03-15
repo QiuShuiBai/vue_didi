@@ -31,19 +31,26 @@ export const getNowWhere = ({ commit, state }) => {
   geolocation.getLocation(showPosition, showErr, options)
 }
 
-export const timeComing = ({commit, state}) => {
-  axios.get("em/mock/5a8e7c36f6208b69f2c27ef6/vue_didi")
+export const timeComing = ({commit, state}, routeName) => {
+  axios.get("https://www.easy-mock.com/mock/5a8e7c36f6208b69f2c27ef6/vue_didi")
     .then(response => {
-      var obj = {
-        timeComing: response.data.data.timeComing
+      var timeComing = ""
+      switch(routeName) {
+        case "fastCar":
+          timeComing = response.data.data.timeComing.fastCar
+          break
+        case "taxiCar":
+          timeComing = response.data.data.timeComing.taxiCar
+          break
+        case "desDri":
+          timeComing = response.data.data.timeComing.desDri
+          break
       }
-      commit("timeComing", obj)
+      state.timeComing = timeComing
     })
     .catch(() => {
-      var obj = {
-        timeComing: "查询失败"
-      }
-      commit("timeComing", obj)
+      var timeComing = "查询失败"
+      state.timeComing = timeComing
     })
   // axios.get("../static/data.json")
   //   .then(response => {

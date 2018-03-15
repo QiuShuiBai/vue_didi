@@ -2,7 +2,7 @@
   <div class="page__ft-account">
     <div class="page_ft-acc center">
       <div class="accIcon"></div>
-      <div class="accNum">15170158725</div>
+      <div class="accNum">151****8725</div>
     </div>
     <div v-for="item in items" :key="item.id">
       <a :href="item.url" class="accItem">

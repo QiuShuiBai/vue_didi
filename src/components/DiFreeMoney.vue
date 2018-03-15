@@ -2,11 +2,11 @@
   <div v-if="isMoney" class="moneyWrap center">
     <div class="payTogether active center">
       <p class="payText">拼座</p>
-      <p class="payMoney"><span>约&nbsp;</span>{{money}}<span>&nbsp;元</span></p>
+      <p class="payMoney"><span>约&nbsp;</span>{{freeCarMoney.total}}<span>&nbsp;元</span></p>
     </div>|
     <div class="notTogether center">
       <p class="payText">不拼座</p>
-      <p class="payMoney">{{money}}</p>
+      <p class="payMoney">{{freeCarMoney.alone}}</p>
     </div>
   </div>
 </template>
@@ -17,7 +17,7 @@ export default {
   computed: {
     ...mapGetters([
       "isMoney",
-      "money"
+      "freeCarMoney"
     ])
   }
 }

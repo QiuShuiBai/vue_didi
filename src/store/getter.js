@@ -5,6 +5,7 @@ export const isMoney = state => state.isMoney
 export const shop = state => state.shop
 export const where = state => state.where
 export const money = state => state.money
+export const freeCarMoney = state => state.freeCarMoney
 export const time = state => state.time
 export const timeComing = state => state.timeComing
 export const perNumber = state => state.perNumber

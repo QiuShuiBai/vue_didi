@@ -43,7 +43,7 @@ export default {
         if(that.isMoney) {
           var where = that.where
           var perNumber = that.perNumber
-          that.$http.get(`gp/v3/distance?origins=${where.nowWhere.lng},${where.nowWhere.lat}&destination=${where.goWhere.lng},${where.goWhere.lat}&output=JSON&key=2bc99677d54a5c7d5e9c248ca0ec8c9d`)
+          that.$http.get(`http://restapi.amap.com/v3/distance?origins=${where.nowWhere.lng},${where.nowWhere.lat}&destination=${where.goWhere.lng},${where.goWhere.lat}&output=JSON&key=2bc99677d54a5c7d5e9c248ca0ec8c9d`)
             .then(response => {
               var distance = response.data.results[0].distance / 1000
               that.distance = distance
@@ -131,6 +131,8 @@ export default {
           freeCarMoney.total = first.total + (secondDis - firstDis) * second.total + (thirdDis - secondDis) * third.total + (fourthDis - thirdDis) * fourth.total + (fifthDis - fourthDis) * fifth.total + (dis - fifthDis) * sixth.total
         }
       }
+      freeCarMoney.alone = freeCarMoney.alone.toFixed(2)
+      freeCarMoney.total = freeCarMoney.total.toFixed(2)
       return freeCarMoney
     },
     getInCityMoney(dis, per) {

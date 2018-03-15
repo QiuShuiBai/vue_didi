@@ -7,7 +7,7 @@
     <div class="page__bd-choTime center">
       <di-choose-time></di-choose-time>
     </div>
-    <di-money></di-money>
+    <di-taxi-money></di-taxi-money>
     <div class="page__bd-choBtn">
       <cube-button :active="true">确定</cube-button>
     </div>
@@ -21,7 +21,7 @@
 <script>
 import DiLoading from "../DiLoading"
 import DiWhere from "../DiWhere"
-import DiMoney from "../DiMoney"
+import DiTaxiMoney from "../DiTaxiMoney"
 import DiTime from "../DiTime"
 import DiChooseTime from "../DiChooseTime"
 import {mapGetters} from "vuex"
@@ -34,7 +34,7 @@ export default {
   },
   components: {
     DiLoading,
-    DiMoney,
+    DiTaxiMoney,
     DiWhere,
     DiTime,
     DiChooseTime

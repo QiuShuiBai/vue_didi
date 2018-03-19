@@ -30,6 +30,9 @@ const mutations = {
     state.where.nowWhere.lat = obj.lat
     state.where.nowWhere.lng = obj.lng
   },
+  changeTime(state, time) {
+    state.time = time
+  },
   chooseWhere(state, where) {
     if(state.num === 1) {
       state.where.nowWhere.poiname = where.poiname
